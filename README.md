@@ -55,13 +55,13 @@ A simple piece of code like this one will work great across 99% of sites:
     <ul>
         <li><a href="{{ craft.languageLink.url('en', element) }}">English</a></li>
         <li><a href="{{ craft.languageLink.url('es', element) }}">Español</a></li>
-        <li><a href="{{ craft.languageLink.url('fr', element) }}">French</a></li>
-        <li><a href="{{ craft.languageLink.url('de', element) }}">German</a></li>
+        <li><a href="{{ craft.languageLink.url('fr', element) }}">Français</a></li>
+        <li><a href="{{ craft.languageLink.url('de', element) }}">Deutsch</a></li>
     </ul>
 
 You can use this code in an `include`, and share it across your entire website. If the page is an `entry` page, it will use the localized version of that entry's slug. Otherwise, it will simply retain the same URI for each link.
 
-If you want to create a dynamic loop through each of your locales, try this:
+If you want to create a dynamic loop through each of your locales, try this instead:
 
     {% set element = (entry is defined ? entry : null) %}
     
