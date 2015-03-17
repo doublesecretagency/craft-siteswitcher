@@ -51,7 +51,13 @@ class LanguageLinkVariable
 	private function _siteUrl($localeCode)
 	{
 		$siteUrl = craft()->config->get('siteUrl');
-		if (array_key_exists($localeCode, $siteUrl)) {
+
+		// siteUrl should be provided as an array:
+		// http://buildwithcraft.com/docs/localization-guide#step-4-define-your-site-uRLs
+
+		if (is_string($siteUrl)) {
+			return $siteUrl;
+		} else if (is_array($siteUrl) && array_key_exists($localeCode, $siteUrl)) {
 			return $siteUrl[$localeCode];
 		} else {
 			return false;
