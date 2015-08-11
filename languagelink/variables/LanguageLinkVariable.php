@@ -26,7 +26,7 @@ class LanguageLinkVariable
 
 			// If localized element exists, return URL
 			if ($localeElement) {
-				return preg_replace('/__home__/', '', $baseUrl.$localeElement->uri);
+				return $this->_parseUrl($localeElement->uri, $localeCode);
 			} else {
 				return false;
 			}
@@ -35,10 +35,10 @@ class LanguageLinkVariable
 
 			// Get page URI
 			$pageUri = craft()->request->path;
-			
+
 			// If base URL exists, return URL
 			if ($baseUrl) {
-				return $baseUrl.$pageUri;
+				return $this->_parseUrl($pageUri, $localeCode);
 			} else {
 				return false;
 			}
@@ -63,5 +63,26 @@ class LanguageLinkVariable
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Parse URL.
+	 *
+	 * @param string $url
+	 * @param string $localCode
+	 *
+	 * @return string
+	 */
+	private function _parseUrl($url, $localeCode)  {
+		$baseUrl = $this->_siteUrl($localeCode);
+		$trailing = craft()->config->get('addTrailingSlashesToUrls') ? '/' : '';
+		$url = preg_replace('/__home__/', '', $url);
+
+		/* Homepage doesn't need trailingslash */
+		if( $url != '' ) {
+			$url = $url.$trailing;
+		}
+
+		return $baseUrl.$url;
+	}
+
 }
