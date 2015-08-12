@@ -2,6 +2,8 @@
 
 _Easily switch between languages on any page of your website!_
 
+**_NEW:_** Language Link just got easier to use! You can now use the `ll` Twig function instead of the more verbose `craft.languageLink.url`... The documentation below has been updated to reflect this shortcut.
+
 ## About
 
 This plugin provides an easy way to switch between languages on your website. Regardless of which page you are currently on, you will be linked to the _same_ page in a different language.
@@ -10,7 +12,13 @@ _* Note: You must be using Craft's [localization feature](https://buildwithcraft
 
 ## Craft Variable
 
+Long version:
+
     craft.languageLink.url(localeId, element = null)
+
+Short version:
+
+    ll(localeId, element = null)
 
  - `localeId` - There are two accepted locale ID formats (`en` or `en_us`).
  - `element` - _(optional)_ If the current page is an `entry` (or another element type), you can pass that element in as the second parameter. This ensures that any translated slugs are properly used.
@@ -21,7 +29,7 @@ Returns a URL which links to the alternate-language version of the current page.
 
 Simply use a line of code like this:
 
-    <a href="{{ craft.languageLink.url('es') }}">Español</a>
+    <a href="{{ ll('es') }}">Español</a>
 
 That will link you to the Spanish version of the current page.
 
@@ -29,11 +37,11 @@ That will link you to the Spanish version of the current page.
 
 If the current page is an entry, your entry might be using different slugs in each language. In that case, you can pass the `entry` object as your second parameter:
 
-    <a href="{{ craft.languageLink.url('es', entry) }}">Español</a>
+    <a href="{{ ll('es', entry) }}">Español</a>
 
 That second parameter can accept any Craft element type, so you can use other elements as well! Obviously, only elements which make use of slugs (like `category` elements) will work.
 
-    <a href="{{ craft.languageLink.url('es', category) }}">Español</a>
+    <a href="{{ ll('es', category) }}">Español</a>
 
 
 ### Sharing language links between entries & non-entries
@@ -53,10 +61,10 @@ A simple piece of code like this one will work great across 99% of sites:
     {% set element = (entry is defined ? entry : null) %}
     
     <ul>
-        <li><a href="{{ craft.languageLink.url('en', element) }}">English</a></li>
-        <li><a href="{{ craft.languageLink.url('es', element) }}">Español</a></li>
-        <li><a href="{{ craft.languageLink.url('fr', element) }}">Français</a></li>
-        <li><a href="{{ craft.languageLink.url('de', element) }}">Deutsch</a></li>
+        <li><a href="{{ ll('en', element) }}">English</a></li>
+        <li><a href="{{ ll('es', element) }}">Español</a></li>
+        <li><a href="{{ ll('fr', element) }}">Français</a></li>
+        <li><a href="{{ ll('de', element) }}">Deutsch</a></li>
     </ul>
 
 You can use this code in an `include`, and share it across your entire website. If the page is an `entry` page, it will use the localized version of that entry's slug. Otherwise, it will simply retain the same URI for each link.
@@ -67,6 +75,6 @@ If you want to create a dynamic loop through each of your locales, try this inst
     
     <ul>
         {% for locale in craft.i18n.getSiteLocales %}
-            <li><a href="{{ craft.languageLink.url(locale.id, element) }}">{{ locale.nativeName|capitalize }}</a></li>
+            <li><a href="{{ ll(locale.id, element) }}">{{ locale.nativeName|capitalize }}</a></li>
         {% endfor %}
     </ul>
