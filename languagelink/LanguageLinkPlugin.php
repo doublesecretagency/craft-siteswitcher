@@ -9,7 +9,22 @@ class LanguageLinkPlugin extends BasePlugin
 		return 'Language Link';
 	}
 
+	public function getDescription()
+	{
+		return 'Easily switch between languages on any page of your website.';
+	}
+
+	public function getDocumentationUrl()
+	{
+		return 'https://github.com/lindseydiloreto/craft-languagelink';
+	}
+
 	public function getVersion()
+	{
+		return '1.1.0';
+	}
+
+	public function getSchemaVersion()
 	{
 		return '1.1.0';
 	}

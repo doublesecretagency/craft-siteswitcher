@@ -7,9 +7,6 @@ class LanguageLinkService extends BaseApplicationComponent
 	// Render localized URL for current page
 	public function url($localeCode = 'en', $element = null)
 	{
-		// Get base URL
-		$baseUrl = $this->_siteUrl($localeCode);
-
 		// If a current element is specified
 		if ($element) {
 
@@ -26,19 +23,22 @@ class LanguageLinkService extends BaseApplicationComponent
 
 			// If localized element exists, return URL
 			if ($localeElement) {
-				return $this->_parseUrl($localeElement->uri, $localeCode);
+				return $this->_compileUrl($localeElement->uri, $localeCode);
 			} else {
 				return false;
 			}
 
 		} else {
 
+			// Get base URL
+			$baseUrl = $this->_siteUrl($localeCode);
+
 			// Get page URI
 			$pageUri = craft()->request->path;
 
 			// If base URL exists, return URL
 			if ($baseUrl) {
-				return $this->_parseUrl($pageUri, $localeCode);
+				return $this->_compileUrl($pageUri, $localeCode);
 			} else {
 				return false;
 			}
@@ -65,30 +65,52 @@ class LanguageLinkService extends BaseApplicationComponent
 	}
 
 	/**
-	 * Parse URL.
+	 * Compile full URL
 	 *
-	 * @param string $url
-	 * @param string $localCode
+	 * @param string $pageUri
+	 * @param string $localeCode
 	 *
 	 * @return string
 	 */
-	private function _parseUrl($url, $localeCode)
+	private function _compileUrl($pageUri, $localeCode)
 	{
+		// Get config values
+		$pageTrigger   = craft()->config->get('pageTrigger');
+		$trailingSlash = craft()->config->get('addTrailingSlashesToUrls');
+
+		// Set URL components
 		$baseUrl = $this->_siteUrl($localeCode);
-		$trailing = (craft()->config->get('addTrailingSlashesToUrls') ? '/' : '');
-		$url = preg_replace('/__home__/', '', $url);
+		$pageUri = preg_replace('/__home__/', '', $pageUri);
 
-		// Homepage doesn't need trailing slash
-		if ($url != '') {
-			// make sure baseUrl has trailing slash
-			$baseUrl = rtrim($baseUrl, '/') . '/';
-			// make sure url has no starting slash
-			$url = ltrim($url, '/');
+		// If not the home page
+		if ('' != $pageUri) {
 
-			$url = $url.$trailing;
+			// Ensure trailing slash on base URL
+			$baseUrl = rtrim($baseUrl, '/').'/';
+
+			// Remove leading slash from page URI
+			$pageUri = ltrim($pageUri, '/');
+
+			// If trailing slash, append to URI
+			if ($trailingSlash) {
+				$pageUri = rtrim($pageUri, '/').'/';
+			}
+
 		}
 
-		return $baseUrl.$url;
+		// Compile full URL
+		$fullUrl = $baseUrl.$pageUri;
+
+		// Get query string
+		$queryString = craft()->request->getQueryStringWithoutPath();
+
+		// If query string, append it to URL
+		if ($queryString) {
+			$fullUrl .= '?'.$queryString;
+		}
+
+		// Return full URL
+		return $fullUrl;
 	}
 
 }

@@ -7,7 +7,7 @@ use Twig_SimpleFunction;
 
 class LanguageLinkTwigExtension extends Twig_Extension
 {
-	
+
 	public function getName()
 	{
 		return 'Language Link';
