@@ -80,6 +80,11 @@ class LanguageLinkService extends BaseApplicationComponent
 
 		// Homepage doesn't need trailing slash
 		if ($url != '') {
+			// make sure baseUrl has trailing slash
+			$baseUrl = rtrim($baseUrl, '/') . '/';
+			// make sure url has no starting slash
+			$url = ltrim($url, '/');
+
 			$url = $url.$trailing;
 		}
 
