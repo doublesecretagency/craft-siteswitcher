@@ -12,13 +12,13 @@ _* Note: You must be using Craft's [localization feature](https://buildwithcraft
 
 ## Craft Variable
 
-Long version:
-
-    craft.languageLink.url(localeId, element = null)
-
 Short version:
 
     ll(localeId, element = null)
+
+Long version:
+
+    craft.languageLink.url(localeId, element = null)
 
  - `localeId` - There are two accepted locale ID formats (`en` or `en_us`).
  - `element` - _(optional)_ If the current page is an `entry` (or another element type), you can pass that element in as the second parameter. This ensures that any translated slugs are properly used.
@@ -58,7 +58,7 @@ This will save you from getting errors on non-entry pages.
 
 A simple piece of code like this one will work great across 99% of sites:
 
-    {% set element = (entry is defined ? entry : null) %}
+    {% set element = (category ?? entry ?? null) %}
     
     <ul>
         <li><a href="{{ ll('en', element) }}">English</a></li>
@@ -71,7 +71,7 @@ You can use this code in an `include`, and share it across your entire website. 
 
 If you want to create a dynamic loop through each of your locales, try this instead:
 
-    {% set element = (entry is defined ? entry : null) %}
+    {% set element = (category ?? entry ?? null) %}
     
     <ul>
         {% for locale in craft.i18n.getSiteLocales %}
