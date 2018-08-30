@@ -1,0 +1,46 @@
+{
+    "name": "doublesecretagency/craft-siteswitcher",
+    "description": "Easily switch between sites on any page of your website.",
+    "type": "craft-plugin",
+    "version": "2.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "language-link",
+        "languages",
+        "language-switcher",
+        "sites",
+        "switcher",
+        "multisite",
+        "multi-site",
+        "locales"
+    ],
+    "support": {
+        "docs": "https://github.com/doublesecretagency/craft-siteswitcher/blob/v2/README.md",
+        "issues": "https://github.com/doublesecretagency/craft-siteswitcher/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Double Secret Agency",
+            "homepage": "https://www.doublesecretagency.com/plugins"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "doublesecretagency\\siteswitcher\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Site Switcher",
+        "handle": "site-switcher",
+        "schemaVersion": "0.0.0",
+        "changelogUrl": "https://raw.githubusercontent.com/doublesecretagency/craft-siteswitcher/v2/CHANGELOG.md",
+        "class": "doublesecretagency\\siteswitcher\\SiteSwitcher"
+    }
+}
