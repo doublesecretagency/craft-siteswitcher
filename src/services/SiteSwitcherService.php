@@ -29,25 +29,39 @@ class SiteSwitcherService extends Component
     /**
      * Render localized URL for current page.
      *
-     * @param null $siteHandle
-     * @param null $element
+     * @param string|null $siteHandle
+     * @param Element|null $element
      * @return bool|string
+     * @throws Exception
+     * @throws InvalidConfigException
      * @throws SiteNotFoundException
      */
-    public function url($siteHandle = null, $element = null)
+    public function url($siteHandle = null, Element $element = null)
     {
         // If no site handle specified, use the default site
         if (!$siteHandle) {
             $siteHandle = Craft::$app->getSites()->getPrimarySite()->handle;
         }
 
-        // If element is specified, return element URL
+        // If element is specified
         if ($element) {
-            return $this->_getElementUrl($siteHandle, $element);
+            // Get element URL
+            $siteLink = $this->_getElementUrl($siteHandle, $element);
+        } else {
+            // Get non-element URL
+            $siteLink = $this->_getNonElementUrl($siteHandle);
         }
 
-        // Return non-element URL
-        return $this->_getNonElementUrl($siteHandle);
+        // Get query string
+        $queryString = Craft::$app->getRequest()->getQueryStringWithoutPath();
+
+        // If site link is valid and query string exists, append query string
+        if ($siteLink && $queryString) {
+            $siteLink .= "?{$queryString}";
+        }
+
+        // Return site link
+        return $siteLink;
     }
 
     /**
@@ -55,7 +69,7 @@ class SiteSwitcherService extends Component
      *
      * @param string $siteHandle
      * @param Element $element
-     * @return bool
+     * @return string|bool
      */
     private function _getElementUrl($siteHandle, Element $element)
     {
