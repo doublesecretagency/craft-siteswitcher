@@ -11,7 +11,7 @@ Easily switch between sites on any page of your website.
 
 This plugin provides an easy way to switch between sites on your website. Regardless of which page you are currently on, you will be linked to the same page in its parallel site.
 
-_* Note: You must be using Craft's [multi-site](https://craftcms.com/features/multi-site) feature to access multiple languages on your website._
+_* Note: You must be using Craft's [multi-site](https://craftcms.com/features/all#multi-site) feature to access multiple languages on your website._
 
 ***
 
@@ -79,6 +79,8 @@ A simple piece of code like this one will work great across 99% of sites:
 
 You can use this code in an `include`, and share it across your entire website. If the page is an `entry` page, it will use the localized version of that entry's slug. Otherwise, it will simply retain the same URI for each link.
 
+### Dynamically looping through all sites
+
 If you want to dynamically loop through each of your sites, try this instead:
 
 ```twig
@@ -87,6 +89,23 @@ If you want to dynamically loop through each of your sites, try this instead:
 <ul>
     {% for site in craft.app.sites.getAllSites() %}
         <li><a href="{{ siteSwitcher(site.handle, element) }}">{{ site.name }}</a></li>
+    {% endfor %}
+</ul>
+```
+
+### Checking whether a translated element exists
+
+Lastly, you can check to make sure that a translated version of that element exists before showing the link:
+
+```twig
+{% set element = (category ?? entry ?? null) %}
+
+<ul>
+    {% for site in craft.app.sites.getAllSites() %}
+        {% set siteLink = siteSwitcher(site.handle, element) %}
+        {% if siteLink %}
+            <li><a href="{{ siteLink }}">{{ site.name }}</a></li>
+        {% endif %}
     {% endfor %}
 </ul>
 ```
