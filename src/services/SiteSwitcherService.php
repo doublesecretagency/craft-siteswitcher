@@ -112,7 +112,7 @@ class SiteSwitcherService extends Component
         }
 
         // Get page URI
-        $pageUri = Craft::$app->getRequest()->getUrl();
+        $pageUri = Craft::$app->getRequest()->getPathInfo();
 
         // Return localized non-element URL
         return UrlHelper::siteUrl($pageUri, null, null, $site->id);
