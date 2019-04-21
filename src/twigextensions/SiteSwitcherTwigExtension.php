@@ -12,21 +12,23 @@
 namespace doublesecretagency\siteswitcher\twigextensions;
 
 use Craft;
-
 use doublesecretagency\siteswitcher\SiteSwitcher;
+use Twig_Extension;
+use Twig_SimpleFunction;
 
 /**
  * Class SiteSwitcherTwigExtension
  * @since 2.0.0
  */
-class SiteSwitcherTwigExtension extends \Twig_Extension
+class SiteSwitcherTwigExtension extends Twig_Extension
 {
+
     /**
      * Returns the name of the extension.
      *
      * @return string The extension name
      */
-    public function getName()
+    public function getName(): string
     {
         return 'Site Switcher';
     }
@@ -34,11 +36,11 @@ class SiteSwitcherTwigExtension extends \Twig_Extension
     /**
      * @inheritdoc
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
-            new \Twig_SimpleFunction('siteSwitcher', [$this, 'siteSwitcher']),
-            new \Twig_SimpleFunction('ll', [$this, 'll']), // DEPRECATED
+            new Twig_SimpleFunction('siteSwitcher', [$this, 'siteSwitcher']),
+            new Twig_SimpleFunction('ll', [$this, 'll']), // DEPRECATED
         ];
     }
 

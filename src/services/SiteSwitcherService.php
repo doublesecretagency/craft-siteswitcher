@@ -13,7 +13,11 @@ namespace doublesecretagency\siteswitcher\services;
 
 use Craft;
 use craft\base\Component;
+use craft\base\Element;
+use craft\errors\SiteNotFoundException;
 use craft\helpers\UrlHelper;
+use yii\base\Exception;
+use yii\base\InvalidConfigException;
 
 /**
  * Class SiteSwitcherService
@@ -28,7 +32,7 @@ class SiteSwitcherService extends Component
      * @param null $siteHandle
      * @param null $element
      * @return bool|string
-     * @throws \craft\errors\SiteNotFoundException
+     * @throws SiteNotFoundException
      */
     public function url($siteHandle = null, $element = null)
     {
@@ -49,11 +53,11 @@ class SiteSwitcherService extends Component
     /**
      * Get localized element URL.
      *
-     * @param $siteHandle
-     * @param $element
+     * @param string $siteHandle
+     * @param Element $element
      * @return bool
      */
-    private function _getElementUrl($siteHandle, $element)
+    private function _getElementUrl($siteHandle, Element $element)
     {
         // If element is not localized, bail
         if (!$element->isLocalized()) {
@@ -80,13 +84,13 @@ class SiteSwitcherService extends Component
      *
      * @param $siteHandle
      * @return bool|string
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
+     * @throws Exception
+     * @throws InvalidConfigException
      */
     private function _getNonElementUrl($siteHandle)
     {
         // Get specified site
-        $site = Craft::$app->sites->getSiteByHandle($siteHandle);
+        $site = Craft::$app->getSites()->getSiteByHandle($siteHandle);
 
         // If no site, bail
         if (!$site) {

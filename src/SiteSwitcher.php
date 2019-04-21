@@ -16,7 +16,6 @@ use yii\base\Event;
 use Craft;
 use craft\base\Plugin;
 use craft\web\twig\variables\CraftVariable;
-
 use doublesecretagency\siteswitcher\services\SiteSwitcherService;
 use doublesecretagency\siteswitcher\twigextensions\SiteSwitcherTwigExtension;
 use doublesecretagency\siteswitcher\variables\SiteSwitcherVariable;
@@ -46,7 +45,7 @@ class SiteSwitcher extends Plugin
         Event::on(
             CraftVariable::class,
             CraftVariable::EVENT_INIT,
-            function (Event $event) {
+            static function (Event $event) {
                 $variable = $event->sender;
                 $variable->set('siteSwitcher', SiteSwitcherVariable::class);
             }
