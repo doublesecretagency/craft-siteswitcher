@@ -2,7 +2,7 @@
     "name": "doublesecretagency/craft-siteswitcher",
     "description": "Easily switch between sites on any page of your website.",
     "type": "craft-plugin",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "keywords": [
         "craft",
         "cms",

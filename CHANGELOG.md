@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.0 - 2019-04-20
+
+### Added
+- Added instructions for "Checking whether a translated element exists".
+
+### Fixed
+- Fixed bug which provided incorrect links on static pages.
+- Ensures query string parameters persist between sites.
+
 ## 2.0.0 - 2018-08-30
 
 ### Added
