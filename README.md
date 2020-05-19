@@ -95,7 +95,7 @@ If you want to dynamically loop through each of your sites, try this instead:
 
 ### Checking whether a translated element exists
 
-Lastly, you can check to make sure that a translated version of that element exists before showing the link:
+You can check to make sure that a translated version of that element exists before showing the link:
 
 ```twig
 {% set element = (category ?? entry ?? null) %}
@@ -107,6 +107,21 @@ Lastly, you can check to make sure that a translated version of that element exi
             <li><a href="{{ siteLink }}">{{ site.name }}</a></li>
         {% endif %}
     {% endfor %}
+</ul>
+```
+
+### Checking whether a translated element exists
+
+Lastly, you can add a fallback to show a link to the homepage of the target site if the entry does not exist on the target site by setting the third parameter to true:
+
+```twig
+{% set element = (category ?? entry ?? null) %}
+
+<ul>
+    <li><a href="{{ siteSwitcher('english', element, true) }}">English</a></li>
+    <li><a href="{{ siteSwitcher('spanish', element, true) }}">Español</a></li>
+    <li><a href="{{ siteSwitcher('french', element, true) }}">Français</a></li>
+    <li><a href="{{ siteSwitcher('german', element, true) }}">Deutsch</a></li>
 </ul>
 ```
 
