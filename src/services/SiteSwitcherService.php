@@ -31,12 +31,13 @@ class SiteSwitcherService extends Component
      *
      * @param string|null $siteHandle
      * @param Element|null $element
+     * @param bool $fallbackToHomepage
      * @return bool|string
      * @throws Exception
      * @throws InvalidConfigException
      * @throws SiteNotFoundException
      */
-    public function url($siteHandle = null, Element $element = null)
+    public function url($siteHandle = null, Element $element = null, bool $fallbackToHomepage = false)
     {
         // If no site handle specified, use the default site
         if (!$siteHandle) {
@@ -58,6 +59,11 @@ class SiteSwitcherService extends Component
         // If site link is valid and query string exists, append query string
         if ($siteLink && $queryString) {
             $siteLink .= "?{$queryString}";
+        }
+
+        // If not element is found on the target site, fallback to homepage
+        if ($siteLink === false && $fallbackToHomepage === true) {
+            $siteLink = Craft::$app->getSites()->getSiteByHandle($siteHandle)->getBaseUrl();
         }
 
         // Return site link
