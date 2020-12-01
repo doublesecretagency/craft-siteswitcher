@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.0 - 2020-05-19
+
+### Added
+- Added fallback link to homepage when entry is not found on target site
+
 ## 2.1.0 - 2019-04-20
 
 ### Added

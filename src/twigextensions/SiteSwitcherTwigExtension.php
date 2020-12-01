@@ -49,11 +49,12 @@ class SiteSwitcherTwigExtension extends Twig_Extension
      *
      * @param $siteHandle
      * @param null $element
+     * @param bool $fallbackToHomepage
      * @return mixed
      */
-    public function siteSwitcher($siteHandle, $element = null)
+    public function siteSwitcher($siteHandle, $element = null, $fallbackToHomepage = false)
     {
-        return SiteSwitcher::$plugin->siteSwitcher->url($siteHandle, $element);
+        return SiteSwitcher::$plugin->siteSwitcher->url($siteHandle, $element, $fallbackToHomepage);
     }
 
     /**
