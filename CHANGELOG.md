@@ -1,9 +1,9 @@
 # Changelog
 
-## 2.2.0 - UNRELEASED
+## 2.2.0 - 2020-12-01
 
 ### Added
-- Optionally fall back to the translated homepage when a link cannot otherwise be determined.
+- Optionally fall back to the translated homepage when a link cannot otherwise be determined. (thanks @niektenhoopen)
 
 ### Changed
 - Updated deprecated Twig references.
