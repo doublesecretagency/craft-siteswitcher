@@ -1,9 +1,9 @@
 # Changelog
 
-## 2.2.0 - 2020-05-19
+## 2.2.0 - UNRELEASED
 
 ### Added
-- Added fallback link to homepage when entry is not found on target site
+- Optionally fall back to the translated homepage when a link cannot otherwise be determined.
 
 ## 2.1.0 - 2019-04-20
 

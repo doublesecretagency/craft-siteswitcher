@@ -110,9 +110,11 @@ You can check to make sure that a translated version of that element exists befo
 </ul>
 ```
 
-### Checking whether a translated element exists
+### Fall back to the translated homepage
 
-Lastly, you can add a fallback to show a link to the homepage of the target site if the entry does not exist on the target site by setting the third parameter to true:
+Assuming your homepage is properly translated across each site, you can set the homepage as a final backstop. If the link cannot otherwise be determined, it will link to the translated homepage instead.
+
+Simply set the optional third parameter to `true`:
 
 ```twig
 {% set element = (category ?? entry ?? null) %}
