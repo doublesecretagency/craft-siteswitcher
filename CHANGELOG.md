@@ -5,6 +5,9 @@
 ### Added
 - Optionally fall back to the translated homepage when a link cannot otherwise be determined.
 
+### Changed
+- Updated deprecated Twig references.
+
 ## 2.1.0 - 2019-04-20
 
 ### Added

@@ -13,14 +13,14 @@ namespace doublesecretagency\siteswitcher\twigextensions;
 
 use Craft;
 use doublesecretagency\siteswitcher\SiteSwitcher;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * Class SiteSwitcherTwigExtension
  * @since 2.0.0
  */
-class SiteSwitcherTwigExtension extends Twig_Extension
+class SiteSwitcherTwigExtension extends AbstractExtension
 {
 
     /**
@@ -39,8 +39,8 @@ class SiteSwitcherTwigExtension extends Twig_Extension
     public function getFunctions(): array
     {
         return [
-            new Twig_SimpleFunction('siteSwitcher', [$this, 'siteSwitcher']),
-            new Twig_SimpleFunction('ll', [$this, 'll']), // DEPRECATED
+            new TwigFunction('siteSwitcher', [$this, 'siteSwitcher']),
+            new TwigFunction('ll', [$this, 'll']), // DEPRECATED
         ];
     }
 
