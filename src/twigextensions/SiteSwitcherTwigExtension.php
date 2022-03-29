@@ -11,7 +11,7 @@
 
 namespace doublesecretagency\siteswitcher\twigextensions;
 
-use Craft;
+use craft\base\Element;
 use doublesecretagency\siteswitcher\SiteSwitcher;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -39,36 +39,21 @@ class SiteSwitcherTwigExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('siteSwitcher', [$this, 'siteSwitcher']),
-            new TwigFunction('ll', [$this, 'll']), // DEPRECATED
+            new TwigFunction('siteSwitcher', [$this, 'siteSwitcher'])
         ];
     }
 
     /**
      * Shortcut to service method.
      *
-     * @param $siteHandle
-     * @param null $element
+     * @param null|string $siteHandle
+     * @param null|Element $element
      * @param bool $fallbackToHomepage
-     * @return mixed
+     * @return null|string
      */
-    public function siteSwitcher($siteHandle, $element = null, $fallbackToHomepage = false)
+    public function siteSwitcher(?string $siteHandle = null, ?Element $element = null, bool $fallbackToHomepage = false): ?string
     {
         return SiteSwitcher::$plugin->siteSwitcher->url($siteHandle, $element, $fallbackToHomepage);
-    }
-
-    /**
-     * Deprecated shortcut to service method.
-     *
-     * @param $siteHandle
-     * @param null $element
-     * @return mixed
-     * @deprecated in Site Switcher 2.0. Use siteSwitcher() instead.
-     */
-    public function ll($siteHandle, $element = null)
-    {
-        Craft::$app->getDeprecator()->log('ll', 'll() has been deprecated. Use siteSwitcher() instead.');
-        return $this->siteSwitcher($siteHandle, $element);
     }
 
 }

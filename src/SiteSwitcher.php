@@ -11,14 +11,13 @@
 
 namespace doublesecretagency\siteswitcher;
 
-use yii\base\Event;
-
 use Craft;
 use craft\base\Plugin;
 use craft\web\twig\variables\CraftVariable;
 use doublesecretagency\siteswitcher\services\SiteSwitcherService;
 use doublesecretagency\siteswitcher\twigextensions\SiteSwitcherTwigExtension;
 use doublesecretagency\siteswitcher\variables\SiteSwitcherVariable;
+use yii\base\Event;
 
 /**
  * Class SiteSwitcher
@@ -27,21 +26,43 @@ use doublesecretagency\siteswitcher\variables\SiteSwitcherVariable;
 class SiteSwitcher extends Plugin
 {
 
-    /** @var Plugin $plugin Self-referential plugin property. */
-    public static $plugin;
+    /**
+     * @var Plugin Self-referential plugin property.
+     */
+    public static Plugin $plugin;
 
-    /** @inheritDoc */
-    public function init()
+    /**
+     * @inheritdoc
+     */
+    public function init(): void
     {
         parent::init();
         self::$plugin = $this;
 
+        // Register components
+        $this->_registerService();
+        $this->_registerVariable();
+        $this->_registerTwigExtension();
+    }
+
+    // ========================================================================= //
+
+    /**
+     * Register services.
+     */
+    private function _registerService(): void
+    {
         // Load plugin components
         $this->setComponents([
             'siteSwitcher' => SiteSwitcherService::class,
         ]);
+    }
 
-        // Register variables
+    /**
+     * Register variables.
+     */
+    private function _registerVariable(): void
+    {
         Event::on(
             CraftVariable::class,
             CraftVariable::EVENT_INIT,
@@ -50,16 +71,28 @@ class SiteSwitcher extends Plugin
                 $variable->set('siteSwitcher', SiteSwitcherVariable::class);
             }
         );
+    }
+
+    /**
+     * Register Twig extension.
+     */
+    private function _registerTwigExtension(): void
+    {
+        // Get request services
+        $request = Craft::$app->getRequest();
 
         // If control panel request, bail
-        if (Craft::$app->getRequest()->getIsCpRequest()) {
+        if ($request->getIsCpRequest()) {
             return;
         }
 
-        if (Craft::$app->getRequest()->getIsSiteRequest()) {
-            Craft::$app->getView()->registerTwigExtension(new SiteSwitcherTwigExtension());
+        // If not a site request, bail
+        if (!$request->getIsSiteRequest()) {
+            return;
         }
 
+        // Register Twig extension
+        Craft::$app->getView()->registerTwigExtension(new SiteSwitcherTwigExtension());
     }
 
 }

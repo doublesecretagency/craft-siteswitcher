@@ -11,6 +11,8 @@
 
 namespace doublesecretagency\siteswitcher\variables;
 
+use Craft;
+use craft\base\Element;
 use doublesecretagency\siteswitcher\SiteSwitcher;
 
 /**
@@ -21,15 +23,18 @@ class SiteSwitcherVariable
 {
 
     /**
-     * Render localized URL for current page
+     * Render localized URL for current page.
      *
-     * @param string $siteHandle
-     * @param null $element
-     * @return mixed
+     * @param null|string $siteHandle
+     * @param null|Element $element
+     * @param bool $fallbackToHomepage
+     * @return null|string
+     * @deprecated in 2.3.0. Use `siteSwitcher()` instead.
      */
-    public function url($siteHandle = null, $element = null)
+    public function url(?string $siteHandle = null, ?Element $element = null, bool $fallbackToHomepage = false): ?string
     {
-        return SiteSwitcher::$plugin->siteSwitcher->url($siteHandle, $element);
+        Craft::$app->getDeprecator()->log('craft.siteSwitcher.url()', 'craft.siteSwitcher.url() has been deprecated. Use siteSwitcher() instead.');
+        return SiteSwitcher::$plugin->siteSwitcher->url($siteHandle, $element, $fallbackToHomepage);
     }
 
 }

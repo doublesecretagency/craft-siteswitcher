@@ -5,10 +5,6 @@ Easily switch between sites on any page of your website.
 
 ***
 
-**The plugin formerly known as "Language Link".**
-
-## About
-
 This plugin provides an easy way to switch between sites on your website. Regardless of which page you are currently on, you will be linked to the same page in its parallel site.
 
 _* Note: You must be using Craft's [multi-site](https://craftcms.com/features/all#multi-site) feature to access multiple languages on your website._
