@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.0.1 - 2026-01-10
 
 ### Changed
 - Improved IDE compatibility. (thanks @marcusgaius)
