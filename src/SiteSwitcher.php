@@ -27,9 +27,10 @@ use yii\base\Event;
  */
 class SiteSwitcher extends Plugin
 {
-
     /**
      * @var Plugin Self-referential plugin property.
+     *
+     * @deprecated in 3.0.1. Use `SiteSwitcher::getInstance()` instead.
      */
     public static Plugin $plugin;
 
@@ -39,6 +40,8 @@ class SiteSwitcher extends Plugin
     public function init(): void
     {
         parent::init();
+
+        /** @noinspection PhpDeprecationInspection */
         self::$plugin = $this;
 
         // Register components
@@ -96,5 +99,4 @@ class SiteSwitcher extends Plugin
         // Register Twig extension
         Craft::$app->getView()->registerTwigExtension(new SiteSwitcherTwigExtension());
     }
-
 }

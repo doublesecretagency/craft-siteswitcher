@@ -22,7 +22,6 @@ use Twig\TwigFunction;
  */
 class SiteSwitcherTwigExtension extends AbstractExtension
 {
-
     /**
      * Returns the name of the extension.
      *
@@ -53,7 +52,6 @@ class SiteSwitcherTwigExtension extends AbstractExtension
      */
     public function siteSwitcher(?string $siteHandle = null, ?Element $element = null, bool $fallbackToHomepage = false): ?string
     {
-        return SiteSwitcher::$plugin->siteSwitcher->url($siteHandle, $element, $fallbackToHomepage);
+        return SiteSwitcher::getInstance()->siteSwitcher->url($siteHandle, $element, $fallbackToHomepage);
     }
-
 }

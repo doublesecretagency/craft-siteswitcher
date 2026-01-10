@@ -13,6 +13,7 @@ namespace doublesecretagency\siteswitcher\variables;
 
 use Craft;
 use craft\base\Element;
+use craft\errors\DeprecationException;
 use doublesecretagency\siteswitcher\SiteSwitcher;
 
 /**
@@ -21,7 +22,6 @@ use doublesecretagency\siteswitcher\SiteSwitcher;
  */
 class SiteSwitcherVariable
 {
-
     /**
      * Render localized URL for current page.
      *
@@ -33,8 +33,13 @@ class SiteSwitcherVariable
      */
     public function url(?string $siteHandle = null, ?Element $element = null, bool $fallbackToHomepage = false): ?string
     {
-        Craft::$app->getDeprecator()->log('craft.siteSwitcher.url()', 'craft.siteSwitcher.url() has been deprecated. Use siteSwitcher() instead.');
-        return SiteSwitcher::$plugin->siteSwitcher->url($siteHandle, $element, $fallbackToHomepage);
+        try {
+            // Attempt to log deprecation message
+            Craft::$app->getDeprecator()->log('craft.siteSwitcher.url()', 'craft.siteSwitcher.url() has been deprecated. Use siteSwitcher() instead.');
+        } catch (DeprecationException $e) {
+            // Do nothing if it doesn't work
+        }
+        // Return URL from service
+        return SiteSwitcher::getInstance()->siteSwitcher->url($siteHandle, $element, $fallbackToHomepage);
     }
-
 }

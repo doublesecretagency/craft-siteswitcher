@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- Improved IDE compatibility. (thanks @marcusgaius)
+- Improved error handling and logging.
+- Deprecated `SiteSwitcher::$plugin` property.
+
 ## 3.0.0 - 2024-02-20
 
 ### Changed
