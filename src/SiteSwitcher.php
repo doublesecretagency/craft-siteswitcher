@@ -22,6 +22,8 @@ use yii\base\Event;
 /**
  * Class SiteSwitcher
  * @since 2.0.0
+ *
+ * @property-read SiteSwitcherService $siteSwitcher
  */
 class SiteSwitcher extends Plugin
 {
